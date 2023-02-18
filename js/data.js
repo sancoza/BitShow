@@ -1,9 +1,18 @@
 const dataModule = (function () {
+  class Season {
+    constructor(startDate, endDate) {
+      this.startDate = startDate;
+      this.endDate = endDate;
+    }
+  }
   class TvShow {
-    constructor(name, id, coverUrl) {
+    constructor(name, id, coverUrl, summary = '', cast = [], seasons = []) {
       this.id = id;
       this.name = name;
       this.coverUrl = coverUrl;
+      this.summary = summary;
+      this.cast = cast;
+      this.seasons = seasons;
     }
   }
 
@@ -13,7 +22,32 @@ const dataModule = (function () {
         return res.json();
       })
       .then(function (showsRawObjects) {
-        return showsRawObjects.map(({ name, id, image }) => new TvShow(name, id, image.original));
+        return showsRawObjects.map(
+          ({ name, id, image }) => new TvShow(name, id, image.original)
+        );
+      });
+  };
+
+  const getSingleTvShow = (id) => {
+    return fetch(
+      `http://api.tvmaze.com/shows/${id}?embed[]=seasons&embed[]=cast`
+    )
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (rawTvShow) {
+        const tvSeasons = rawTvShow._embedded.seasons.map(
+          (s) => new Season(s.premiereDate, s.endDate)
+        );
+        const cast = rawTvShow._embedded.cast.map((a) => a.person.name);
+        return new TvShow(
+          rawTvShow.name,
+          rawTvShow.id,
+          rawTvShow.image.original,
+          rawTvShow.summary,
+          cast,
+          tvSeasons
+        );
       });
   };
 
@@ -31,5 +65,5 @@ const dataModule = (function () {
       });
   };
 
-  return { getShows, searchShow };
+  return { getShows, searchShow, getSingleTvShow };
 })();

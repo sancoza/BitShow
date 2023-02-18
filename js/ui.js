@@ -21,6 +21,40 @@ const uiModule = (function () {
     mainContentWrapperEl.innerHTML = html;
   };
 
+  const renderSingleTvShowPage = (show) => {
+    let castListHtml='';
+    show.cast.forEach((string) => {
+      castListHtml += `
+      <div class="cast-item">${string}</div>
+      `;
+    });
+    let seasonList='';
+    show.seasons.forEach(({startDate, endDate})=> {
+      seasonList += `
+      <div class="season-item">${startDate} - ${endDate}</div>
+      `;
+    });
+    const finalHtml = `
+    <h1>${show.name}</h1>
+    <div class="detail-wrapper">
+    <img src="${show.coverUrl}" alt="show cover" />
+    <div class="list-wrapper">
+    <h2>Seasons</h2>
+    ${seasonList}
+    <h2>Cast</h2>
+    ${castListHtml}
+    </div>
+    </div>
+    <h2>Show Details</h2>
+    ${show.summary}
+    `;
+    mainContentWrapperEl.innerHTML = finalHtml;
+  };
+  
+
+
+
+
   const renderSearchDropdown = (shows) => {
     shows.forEach((show) => {
       const itemEl = document.createElement('div');
@@ -34,5 +68,5 @@ const uiModule = (function () {
   const clearDropdown = () => {
     searchDropdownEl.innerHTML = '';
   };
-  return { renderHomePage, renderSearchDropdown, clearDropdown };
+  return { renderHomePage, renderSearchDropdown, clearDropdown, renderSingleTvShowPage };
 })();
