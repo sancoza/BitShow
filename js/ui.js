@@ -4,7 +4,7 @@ const uiModule = (function () {
 
   const renderHomePage = (shows) => {
     let html = `
-			<h1>All TV Shows</h1>
+			<h1>Popular Shows</h1>
 			<div id="show-list">
 		`;
 
@@ -45,7 +45,7 @@ const uiModule = (function () {
     ${castListHtml}
     </div>
     </div>
-    <h2>Show Details</h2>
+    <h2 class="show">Show Details</h2>
     ${show.summary}
     `;
     mainContentWrapperEl.innerHTML = finalHtml;

@@ -7,6 +7,7 @@ header nav {
 }
 header nav .navbar-brand {
   color: whitesmoke !important;
+  cursor: pointer;
 }
 
 footer {
@@ -28,12 +29,17 @@ footer .footerItem {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-between;
-  align-items: center;
   padding-top: 24px;
 }
 
 .show-item {
   width: 290px;
+}
+
+.show-item p {
+  cursor: pointer;
+  color: #1081ff;
+  text-align: center;
 }
 
 .show-item img {
@@ -53,6 +59,36 @@ footer .footerItem {
 
 .search-item {
   padding: 4px 0;
+  border-bottom: 1px solid black;
+  margin: 15px;
+}
+
+.detail-wrapper {
+  width: 60%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.list-wrapper {
+  padding-left: 5rem;
+}
+
+.show {
+  text-align: left;
+}
+
+.season-item {
+  display: list-item;
+}
+
+.cast-item {
+  display: list-item;
+}
+
+p {
+  text-align: start;
 }
 
 /*# sourceMappingURL=style.css.map */
